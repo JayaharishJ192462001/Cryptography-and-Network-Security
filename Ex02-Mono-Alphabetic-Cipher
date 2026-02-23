@@ -1,0 +1,11 @@
+l=list('abcdefghijklmnopqrstuvwxyz')
+e=list('qwertyuiopasdfghjklzxcvbnm')
+c=input("Enter a word to encrypt:").lower()
+result=''
+for ch in c:
+    if ch in l:
+        i=l.index(ch)
+        result=result+e[i]
+    else:
+        result+=ch
+print("The Encrypted word is:",result)
