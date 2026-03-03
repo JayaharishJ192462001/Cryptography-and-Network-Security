@@ -1,0 +1,25 @@
+def encrypt(text, key):
+    result=''
+    key=key.lower()
+    n=0
+    for ch in text:
+        if ch.isalpha():
+            sh=ord(key[n%len(key)])-97
+            enc=chr((ord(ch)- 97+sh)%26+97)
+            result += enc
+            n+= 1
+    print(result)
+
+encrypt("abcd","bc")
+def decrypt(text, key):
+    result=''
+    n=0
+    for ch in text:
+        if ch.isalpha():
+            sh=ord(key[n%len(key)])-97
+            dec=chr((ord(ch)-97-sh)%26+97)
+            result+=dec
+            n+=1
+    print(result)
+
+decrypt("bddf","bc")
