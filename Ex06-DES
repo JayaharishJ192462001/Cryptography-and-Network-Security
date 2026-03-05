@@ -1,0 +1,7 @@
+from Crypto.Cipher import DES
+from Crypto.Util.Padding import pad
+key = b'ABCDEFGH' 
+cipher = DES.new(key, DES.MODE_ECB)
+text = input("Enter plaintext: ").encode()
+encrypted = cipher.encrypt(pad(text, DES.block_size))
+print("Encrypted (Hex):", encrypted.hex())
