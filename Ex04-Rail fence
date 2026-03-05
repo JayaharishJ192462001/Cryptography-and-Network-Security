@@ -1,0 +1,52 @@
+def encrypt(text, key):
+    rail = ['' for i in range(key)]
+    row = 0
+    direction = 1
+    for ch in text:
+        rail[row] += ch
+        row += direction
+        if row == 0 or row == key - 1:
+            direction *= -1
+    cipher = ''.join(rail)
+    return cipher
+def decrypt(cipher, key):
+    rail = [['\n' for i in range(len(cipher))] for j in range(key)]
+    row = 0
+    direction = 1
+    # mark zigzag pattern
+    for i in range(len(cipher)):
+        rail[row][i] = '*'
+        row += direction
+        if row == 0 or row == key - 1:
+            direction *= -1
+    # fill characters
+    index = 0
+    for i in range(key):
+        for j in range(len(cipher)):
+            if rail[i][j] == '*' and index < len(cipher):
+                rail[i][j] = cipher[index]
+                index += 1
+    result = ''
+    row = 0
+    direction = 1
+    for i in range(len(cipher)):
+        result += rail[row][i]
+        row += direction
+        if row == 0 or row == key - 1:
+            direction *= -1
+    return result
+while True:
+    print("\n1. Encryption")
+    print("2. Decryption")
+    print("3. Exit")
+    ch = int(input("Enter choice: "))
+    if ch == 1:
+        text = input("Enter text: ")
+        key = int(input("Enter number of rails: "))
+        print("Encrypted Text:", encrypt(text, key))
+    elif ch == 2:
+        text = input("Enter cipher text: ")
+        key = int(input("Enter number of rails: "))
+        print("Decrypted Text:", decrypt(text, key))
+    else:
+        break
