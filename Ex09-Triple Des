@@ -1,0 +1,22 @@
+from Crypto.Cipher import DES3
+from Crypto.Random import get_random_bytes
+from Crypto.Util.Padding import pad, unpad
+key = DES3.adjust_key_parity(b'123456789012345678901234')
+iv =b'12345678'
+encrypted_data = None
+print("\n---- 3DES Menu ----")
+print("1. Encrypt")
+print("2. Decrypt")
+choice = input("Enter choice: ")
+if choice == '1':
+    data = input("Enter text to encrypt: ").encode()
+    cipher = DES3.new(key, DES3.MODE_CFB, iv=iv)
+    padded_data = pad(data, DES3.block_size)
+    encrypted_data = cipher.encrypt(padded_data)
+    print("Encrypted Data:", encrypted_data.hex())
+elif choice == '2':
+    data = bytes.fromhex(input("Enter hex to Decrypt: "))
+    cipher = DES3.new(key, DES3.MODE_CFB, iv=iv)
+    decrypted_data = cipher.decrypt(data)
+    unpadded_data = unpad(decrypted_data, DES3.block_size)
+    print("Decrypted Data:", unpadded_data.decode())
